@@ -95,8 +95,8 @@ Example Plan Snippet (JSON):
     }
   }
 ]
-```json
-The Execution Flow
+```
+# The Execution Flow
 This diagram shows the call stack when the agent executes the mkdir action from the plan above
 ```txt
 BDIAgent                                                   SimpleCoder
