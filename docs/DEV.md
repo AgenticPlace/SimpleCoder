@@ -173,7 +173,6 @@ bdi_agent - INFO - Action 'EXECUTE_TOOL' SUCCEEDED. Result: {'status': 'SUCCESS'
 bdi_agent - INFO - Plan plan_xxxx completed.
 bdi_agent - INFO - Goal 'primary_yyyy' achieved successfully.
 bdi_agent - INFO - BDI run finished with final status: GOAL_ACHIEVED
-Use code with caution.
 Log
 # PYTHAI mindX bdi_agent.py (brain) SimpleCoder (hands)
 This two-component architecture provides a powerful and secure foundation for the mindX agent.
