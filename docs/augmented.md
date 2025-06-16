@@ -1,4 +1,4 @@
-The AI Trend is Over. The Era of Augmented Intelligence Has Begun.
+# The Artificial Trend is Over. The Era of Augmented Intelligence Has Begun.
 For the past decade, the world has been captivated by a single, seductive idea: Artificial Intelligence. We've watched as algorithms learned to paint like Rembrandt and write like Shakespeare. We've been promised a future of automation, of intelligent assistants, and of machines that can think like us.
 This was a necessary, but ultimately intermediate, step. The pursuit of AI that mimics human intelligence has reached its zenith. The results are spectacular, but they are an echo, not a new voice. A machine that can perfectly replicate the past is still just a machine.
 Today, that trend is over. The future does not belong to Artificial Intelligence. It belongs to Augmented Intelligence.
