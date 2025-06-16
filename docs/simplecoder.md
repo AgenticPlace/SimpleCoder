@@ -1,32 +1,30 @@
-SimpleCoder Tool: Developer's Guide
+# SimpleCoder Tool: Developer's Guide
 Version: 7.0 (CLI & BDI Integration) <br />
 Component: mindx/tools/simple_coder.py
-1. Introduction and Philosophy
+# Philosophy
 SimpleCoder is the primary execution tool for the mindX agent system. It is the component that directly interacts with the host filesystem and shell.
 Its design is guided by a singular, critical philosophy: "Do one thing and do it well."
 SimpleCoder's "one thing" is to provide a secure, stateful, and sandboxed terminal session. It is not a planner, a reasoner, or a knowledge base. It is a hardened execution engine that receives concrete commands and carries them out within a strictly defined boundary. Think of it as the agent's "hands"—strong and capable, but directed by the "brain" (BDIAgent).
 This document provides a complete technical breakdown of its architecture, capabilities, and integration patterns.
-2. Core Architecture: The Sandboxed Session
+# Architecture: The Sandboxed Session
 The entire architecture of SimpleCoder is built to create and maintain a secure, isolated session for the agent. This session is defined by three key components.
-2.1. The Filesystem Jail (sandbox_root)
+#  The Filesystem Jail (sandbox_root)
 Upon initialization, SimpleCoder establishes an absolute path to a sandbox_root directory. This directory is the agent's entire world. No operation is ever allowed to read, write, or execute outside this directory.
 This is enforced by the private _resolve_and_check_path() method, which is the heart of the security model. It is called by every command that takes a path argument.
 Workflow of _resolve_and_check_path(path_str):
 Resolve: It takes a path string (e.g., my_project/main.py or ../.ssh/id_rsa) and resolves it to a full, absolute system path relative to the session's current working directory. This step is critical as it expands . and .., neutralizing traversal attempts.
 Validate: It then checks if this absolute path is a child of the sandbox_root.
 Result: If the path is inside the sandbox, it returns a valid pathlib.Path object. If it is outside, it logs a "Path Traversal DENIED" error and returns None, causing the calling command to fail safely.
-2.2. Session State Management
+# Session State Management
 SimpleCoder is stateful. It maintains the context of the agent's session across multiple commands.
 self.current_working_directory: A pathlib.Path object tracking the agent's location within the sandbox. It is initialized to sandbox_root and modified only by the cd command.
 self.active_venv_bin_path: An optional pathlib.Path that points to the bin (or Scripts) directory of an activated virtual environment. When this is set, it's used to modify the PATH for run commands.
 self.autonomous_mode: A boolean safety switch. It defaults to False. Destructive commands like rm are programmed to fail unless this is explicitly set to True, preventing accidental data loss from a faulty agent plan.
-2.3. The Native Command Toolkit (native_handlers)
+# The Native Command Toolkit (native_handlers)
 SimpleCoder's functionality is exposed through a dispatch table of native, asynchronous Python methods. This approach is secure and scalable:
 Security: By implementing core functions like ls, mkdir, and read in Python with pathlib, we bypass the host shell entirely for these operations, eliminating a whole class of injection vulnerabilities.
 Scalability: Adding a new native command is as simple as writing a new async def _my_new_command() method and adding it to the native_handlers dictionary.
-3. Capabilities and Command API
-This section details the public-facing commands available to an agent.
-3.1. Filesystem Commands
+# Filesystem Commands
 Command	Parameters	Description
 ls	path: str = "."	Lists files and directories in the given path. Suffixes directories with /.
 cd	path: str	Changes the session's current working directory.
@@ -34,23 +32,22 @@ read	path: str	Reads the full UTF-8 content of a specified file.
 write	path: str, content: str	Writes string content to a file, creating parent directories if they don't exist.
 mkdir	path: str	Creates a directory, including all necessary parents (like mkdir -p).
 rm	path: str	Deletes a single file. Fails if autonomous_mode is False.
-3.2. Environment Management Commands
+# Environment Management Commands
 This is SimpleCoder's most powerful feature set, empowering the agent to manage its own development environments.
 Command	Parameters	Description
 create_venv	venv_name: str	Creates a Python virtual environment in the CWD (e.g., python -m venv <venv_name>).
 activate_venv	venv_name: str	Simulates source. Sets the session's active_venv_bin_path to point to this venv.
 deactivate_venv	(none)	Clears the active venv, reverting run commands to the system PATH.
-3.3. Execution Command
+# Execution Command
 This is the secure gateway for running external programs.
 Command	Parameters	Description
 run	command: str	Executes an allowlisted shell command (e.g., git --version, pip install -r req.txt). It uses shlex.split() for safe argument parsing and automatically uses the active venv's PATH.
-3.4. Session Control Commands
+# Session Control Commands
 Command	Parameters	Description
 toggle_autonomous_mode	(none)	Toggles the safety switch for destructive operations.
 help	(none)	Displays a list of available native commands.
-4. Integration and Usage
 SimpleCoder is designed to be used in two primary ways: by the BDIAgent as a tool, or directly via its CLI for testing.
-4.1. Usage by BDIAgent
+# Usage by BDIAgent
 The BDIAgent interacts with SimpleCoder via a single, unified entry point: the execute() method. The agent's plan will generate EXECUTE_TOOL actions that translate into calls to this method.
 A BDIAgent Plan Step:
 {
