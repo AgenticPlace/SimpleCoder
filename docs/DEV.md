@@ -32,7 +32,7 @@ The BDIAgent operates on a continuous Perceive-Deliberate-Plan-Execute cycle, dr
 ```
 Beliefs: A knowledge store (BeliefSystem) holding the agent's understanding of the world, tagged with confidence and source.
 Desires: A priority queue of goals. The agent's primary objective is to satisfy these desires.
-Intentions: A concrete, step-by-step plan to achieve the current highest-priority goal. The BDIAgent uses its internal LLM to generate this plan, which is then rigorously validated before it becomes an intention.
+Intentions: A concrete, step-by-step plan to achieve the current highest-priority goal. The BDIAgent uses its internal LLM to generate this plan, which is then rigorously validated before it becomes an intention.<br /><br />
 Pillar 2: The Sandboxed Hands (SimpleCoder)
 SimpleCoder provides the environment in which the BDIAgent's plans are realized. Its security model is non-negotiable.
 The Sandbox Jail
@@ -62,12 +62,12 @@ On initialization, SimpleCoder establishes a sandbox_root directory. No operatio
 ```
 # A Stateful Session
 SimpleCoder is not a collection of stateless functions. It maintains a session state:
-Current Working Directory (CWD): The agent can cd into subdirectories.
+Current Working Directory (CWD): The agent can cd into subdirectories.<br /><br />
 Active Virtual Environment: The agent can create_venv and activate_venv. Once active, all run commands for python and pip are automatically routed to the venv's isolated executables.
 Autonomous Mode: A safety switch that must be enabled for destructive commands like rm.
 # The Integration Layer: How Brain Controls Hands
 The connection between the BDIAgent and SimpleCoder is explicit and structured. The agent does not "chat" with its tool; it issues formal commands as part of a validated plan.
-The Plan: A Contract for Execution
+# The Plan: A Contract for Execution
 When the BDIAgent needs to act, its internal LLM generates a plan. This plan is a JSON list of actions. To use SimpleCoder, it generates an EXECUTE_TOOL action.
 Example Plan Snippet (JSON):
 ```json
@@ -177,13 +177,13 @@ Log
 # PYTHAI mindX bdi_agent.py (brain) SimpleCoder (hands)
 This two-component architecture provides a powerful and secure foundation for the mindX agent.
 Key Strengths:
-Security by Design: The hard separation between the reasoning layer (BDIAgent) and the sandboxed execution layer (SimpleCoder) is the primary security feature.
-Modularity: SimpleCoder can be tested independently via its CLI. The BDIAgent can be given different sets of tools without changing its core logic.
-Stateful Power: The agent can perform complex, multi-step tasks that require context (like activating a venv before installing packages) in a natural way.
-Observability: The clear, structured plans and distinct log sources make debugging agent behavior significantly easier than in monolithic agent designs.
+Security by Design: The hard separation between the reasoning layer (BDIAgent) and the sandboxed execution layer (SimpleCoder) is the primary security feature.<br /><br />
+Modularity: SimpleCoder can be tested independently via its CLI. The BDIAgent can be given different sets of tools without changing its core logic.<br /><br />
+Stateful Power: The agent can perform complex, multi-step tasks that require context (like activating a venv before installing packages) in a natural way.<br /><br />
+Observability: The clear, structured plans and distinct log sources make debugging agent behavior significantly easier than in monolithic agent designs.<br /><br />
 # Known Limitations:
-The Semantic Gap: The system's success relies on the LLM's ability to generate a valid plan. If the LLM hallucinates a command or parameter, the system will fail gracefully (the action will fail validation), but the overall task will stall.
-No Interactive Processes: The run command cannot manage shell commands that require real-time TTY input (e.g., ssh, vim).
-Stateless Environment Variables: The session does not persist environment variables (export VAR=...) between run calls.
-Sequential Execution: The agent executes one action at a time. It does not support running long-running background processes in parallel.
-These limitations are deliberate design trade-offs to ensure security and simplicity, providing a solid foundation for future enhancements.
+The Semantic Gap: The system's success relies on the LLM's ability to generate a valid plan. If the LLM hallucinates a command or parameter, the system will fail gracefully (the action will fail validation), but the overall task will stall.<br /><br />
+No Interactive Processes: The run command cannot manage shell commands that require real-time TTY input (e.g., ssh, vim).<br /><br />
+Stateless Environment Variables: The session does not persist environment variables (export VAR=...) between run calls.<br /><br />
+Sequential Execution: The agent executes one action at a time. It does not support running long-running background processes in parallel.<br /><br />
+These limitations are deliberate design trade-offs to ensure security and simplicity, providing a solid foundation for future enhancements.<br /><br />
