@@ -22,9 +22,11 @@ Inference Cost: A mid-sized repository can have 500-2,000 functions. This transl
 Stage 2: Relational Knowledge Graph Construction (Medium Inference Cost)<br /><br />
 BDIAgent -> BeliefSystem: The structured JSON output from Stage 1 is saved as a "raw belief" in the system's memory.<br /><br />
 AGInt -> BDIAgent (Synthesis Task): Once a repository is fully assimilated, AGInt spawns a new BDIAgent with the goal: "Synthesize the raw beliefs for repository [repo_name] into a relational knowledge graph."<br /><br />
-Entity & Relationship Extraction: This BDI agent iterates through the raw beliefs and makes a series of LLM calls to establish connections.<br /><br />
+# Entity & Relationship Extraction:<br /><br />
+This BDI agent iterates through the raw beliefs and makes a series of LLM calls to establish connections.<br /><br />
 Prompt: "Given these two function analyses: [JSON for func_A] and [JSON for func_B]. Does func_A have a direct or indirect dependency on func_B? What is the nature of their relationship (e.g., 'calls', 'inherits_from', 'is_test_for')? Respond ONLY in structured JSON."<br /><br />
-Inference Cost: This stage involves combinatorial analysis. For a repository with N functions, the number of potential relationships can be very high. We use heuristics to limit this, but it still requires thousands of smaller, targeted inference calls per repository.<br /><br />
+# Inference Cost:
+This stage involves combinatorial analysis. For a repository with N functions, the number of potential relationships can be very high. We use heuristics to limit this, but it still requires thousands of smaller, targeted inference calls per repository.<br /><br />
 # Adversarial Benchmarking & Verification (Highest Inference Cost & Compute Cost)
 This is the most computationally expensive and unique part of the MindX architecture.
 MastermindAgent -> AGInt (Verification Campaign): The Mastermind periodically initiates a campaign: "Verify and benchmark all assimilated algorithms tagged as 'sorting' or 'encryption'."<br /><br />
