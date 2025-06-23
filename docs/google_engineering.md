@@ -11,8 +11,10 @@ This is not a "big data" problem; it is a "deep knowledge" problem. The goal is 
 The "Great Ingestion" is the primary activity for which these credits are required. It involves processing an initial corpus of 3,650 audited, high-quality open-source repositories. The process is not a simple file scan; it is a multi-agent, recursive analysis loop.<br /><br />
 Here is the computational workflow for a single repository:<br /><br />
 # Codebase Assimilation (High Inference Cost)
-MastermindAgent -> AGInt -> BDIAgent: The Mastermind initiates a campaign with the directive: "Assimilate repository [repo_url].".
-BDIAgent -> SimpleCoder: A BDIAgent is spawned. Its first task is to use SimpleCoder to git clone the repository into its secure sandbox.
+MastermindAgent -> AGInt -> BDIAgent: The Mastermind initiates a campaign with the directive:<br /><br /> "Assimilate repository [repo_url].".
+BDIAgent -> SimpleCoder:<br /><br />
+
+A BDIAgent is spawned. Its first task is to use SimpleCoder to git clone the repository into its secure sandbox.<br /><br />
 Recursive Analysis (CodeBaseGenerator): The BDI agent then uses a specialized tool (CodeBaseGenerator, which is LLM-powered) to recursively parse every single source file (.py, .js, .go, etc.). For each file, it performs an initial Abstract Syntax Tree (AST) analysis.<br /><br />
 Function-Level Cognitive Task: For each significant function or class identified in the AST, the BDI agent makes a dedicated LLM call.<br /><br />
 Prompt: "You are a senior software architect. Analyze the following function: [function_code]. Identify its core purpose, its algorithmic complexity (Big O), its primary dependencies, and any potential security anti-patterns (e.g., raw SQL execution, shell=True). Respond ONLY in structured JSON."<br /><br />
