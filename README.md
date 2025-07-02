@@ -156,13 +156,13 @@ Understanding Permissions: Testing what the agent can and cannot do within its j
 # Summary and Limitations
 This two-component architecture provides a powerful and secure foundation for the mindX agent system.<br /><br />
 Key Strengths:<br /><br />
-Security by Design: The hard separation between the reasoning layer and the sandboxed execution layer is the primary security feature.<br />
-Modularity: SimpleCoder can be tested independently via its CLI. The BDIAgent can be given different sets of tools without changing its core logic.<br />
-Stateful Power: The agent can perform complex, multi-step tasks that require context in a natural way.<br />
+Security by Design: The hard separation between the reasoning layer and the sandboxed execution layer is the primary security feature.<br /><br />
+Modularity: SimpleCoder can be tested independently via its CLI. The BDIAgent can be given different sets of tools without changing its core logic.<br /><br />
+Stateful Power: The agent can perform complex, multi-step tasks that require context in a natural way.<br /><br />
 Observability: The structured plans and distinct log sources make debugging agent behavior significantly easier than in monolithic agent designs.<br /><br />
 Known Limitations:<br /><br />
-The Semantic Gap: The system's success relies on the LLM's ability to generate a valid plan. If the LLM hallucinates a command or parameter, the system will fail gracefully (the action will fail validation), but the overall task will stall.<br />
-No Interactive Processes: The run command cannot manage shell commands that require real-time TTY input (e.g., ssh, vim).<br />
-Stateless Environment Variables: The session does not persist environment variables (export VAR=...) between run calls.<br />
-Sequential Execution: The agent executes one action at a time. It does not support running long-running background processes.<br />
+The Semantic Gap: The system's success relies on the LLM's ability to generate a valid plan. If the LLM hallucinates a command or parameter, the system will fail gracefully (the action will fail validation), but the overall task will stall.<br /><br />
+No Interactive Processes: The run command cannot manage shell commands that require real-time TTY input (e.g., ssh, vim).<br /><br />
+Stateless Environment Variables: The session does not persist environment variables (export VAR=...) between run calls.<br /><br />
+Sequential Execution: The agent executes one action at a time. It does not support running long-running background processes.<br /><br />
 These limitations are deliberate design trade-offs to ensure security and simplicity, providing a solid foundation for future enhancements.<br />
