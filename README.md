@@ -44,16 +44,16 @@ Active Virtual Environment: The agent can create_venv and activate_venv. Once ac
 Autonomous Mode: A safety switch that must be enabled for destructive commands like rm.<br />
 # Technical Implementation
 The BDI Cycle (BDIAgent)<br /><br />
-The BDIAgent operates on a continuous Deliberate-Plan-Execute loop, driven by a formal AgentStatus state machine.<br />
-Deliberate: It reviews its list of goals (desires) and selects the highest-priority pending goal.<br />
+The BDIAgent operates on a continuous Deliberate-Plan-Execute loop, driven by a formal AgentStatus state machine.<br /><br />
+Deliberate: It reviews its list of goals (desires) and selects the highest-priority pending goal.<br /><br />
 Plan: It uses its internal LLM to generate a plan to achieve the selected goal. The LLM is given a strict list of available actions and tools to ground its output.<br /><br />
 Validate: The generated plan (a JSON list of actions) is rigorously validated against a schema. If the plan is invalid (e.g., uses a non-existent tool or has a malformed structure), it is rejected, and the agent enters a FAILED_PLANNING state.<br /><br />
 Execute: If the plan is valid, it becomes the agent's intention. The agent executes one action at a time, passing tool commands to the appropriate tool (like SimpleCoder).<br /><br />
 # Venv Activation (SimpleCoder)
-A shell's source command modifies the environment of the current process. Since SimpleCoder executes commands in child processes, it cannot be called directly. Instead, it is correctly and securely simulated:
-The activate_venv command validates the target venv directory and stores its bin path in self.active_venv_bin_path.<br />
-When the run command is called, it creates a copy of the system environment (os.environ.copy())<br />
-If self.active_venv_bin_path is set, it prepends this path to the PATH variable within that copied environment.<br />
+A shell's source command modifies the environment of the current process. Since SimpleCoder executes commands in child processes, it cannot be called directly. Instead, it is correctly and securely simulated:<br /><br />
+The activate_venv command validates the target venv directory and stores its bin path in self.active_venv_bin_path.<br /><br />
+When the run command is called, it creates a copy of the system environment (os.environ.copy())<br /><br />
+If self.active_venv_bin_path is set, it prepends this path to the PATH variable within that copied environment.<br /><br />
 The subprocess is then launched with this modified environment. The OS, when searching for python, finds the venv's version first, achieving perfect isolation.<br /><br />
 # The Command Toolkit (SimpleCoder)
 The agent's capabilities are exposed as a clean set of native, asynchronous Python methods, handled by a dispatch table.<br />
