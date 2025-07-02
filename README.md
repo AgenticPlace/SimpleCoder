@@ -149,10 +149,10 @@ Type 'help' for a list of commands, or 'exit' to quit.
 (.venv) ./test_project $ exit
 Exiting.
 ```
-This CLI is invaluable for:<br />
-Debugging: Quickly verifying that allowlisted shell commands work as expected.<br />
-Environment Scaffolding: Manually setting up a complex directory structure or installing base packages in a venv before handing a task to the agent.<br />
-Understanding Permissions: Testing what the agent can and cannot do within its jail.<br />
+This CLI is invaluable for:<br /><br />
+Debugging: Quickly verifying that allowlisted shell commands work as expected.<br /><br />
+Environment Scaffolding: Manually setting up a complex directory structure or installing base packages in a venv before handing a task to the agent.<br /><br />
+Understanding Permissions: Testing what the agent can and cannot do within its jail.<br /><br />
 # Summary and Limitations
 This two-component architecture provides a powerful and secure foundation for the mindX agent system.<br /><br />
 Key Strengths:<br /><br />
