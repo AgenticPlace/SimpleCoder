@@ -1,6 +1,6 @@
 # mindX Agent Architecture
 <a href="https://github.com/AgenticPlace/SimpleCoder/blob/main/docs/DEV.md">A Developer's Guide</a><br /><br />
-Version: BDIAgent v3.0 | SimpleCoder v7.0 <br />
+Version: <a href="https://github.com/AgenticPlace/SimpleCoder/blob/main/bdi_agent_ID_aware.py">BDIAgent v3.0</a> | SimpleCoder v7.0 <br />
 Author: The mindX Team <br />
 Status: Production Ready
 # Introduction: The Brain and The Hands
