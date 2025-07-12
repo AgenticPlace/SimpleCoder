@@ -155,7 +155,7 @@ Environment Scaffolding: Manually setting up a complex directory structure or in
 Understanding Permissions: Testing what the agent can and cannot do within its jail.<br /><br />
 # Summary and Limitations
 This two-component architecture provides a powerful and secure foundation for the mindX agent system.<br /><br />
-Key Strengths:<br /><br />
+<a href="https://github.com/AgenticPlace/SimpleCoder/blob/main/simple_coder.py">Key Strengths</a>:<br /><br />
 Security by Design: The hard separation between the reasoning layer and the sandboxed execution layer is the primary security feature.<br /><br />
 Modularity: SimpleCoder can be tested independently via its CLI. The BDIAgent can be given different sets of tools without changing its core logic.<br /><br />
 Stateful Power: The agent can perform complex, multi-step tasks that require context in a natural way.<br /><br />
