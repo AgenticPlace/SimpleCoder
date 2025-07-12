@@ -165,4 +165,4 @@ The Semantic Gap: The system's success relies on the LLM's ability to generate a
 No Interactive Processes: The run command cannot manage shell commands that require real-time TTY input (e.g., ssh, vim).<br /><br />
 Stateless Environment Variables: The session does not persist environment variables (export VAR=...) between run calls.<br /><br />
 Sequential Execution: The agent executes one action at a time. It does not support running long-running background processes.<br /><br />
-These limitations are deliberate design trade-offs to ensure security and simplicity, providing a solid foundation for future enhancements.<br />
+These <a href="https://github.com/AgenticPlace/SimpleCoder/blob/main/docs/technical.md">limitations</a> are deliberate design trade-offs to ensure security and simplicity, providing a solid foundation for future enhancements for mindX Augmentic Intelligence<br />
