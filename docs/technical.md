@@ -10,7 +10,7 @@ AGInt (The Strategic Mind / "Application Layer"): A high-level application runni
 BDIAgent (The Tactical Brain / "Function Library"): A pure, logical, task-execution engine. It receives a well-defined task from an AGInt and uses its internal LLM to generate and execute a detailed, short-term plan to accomplish it. It operates on a short-term horizon (seconds, minutes).<br /><br />
 SimpleCoder (The Hands / "Device Driver"): The lowest-level tool. It provides a secure, stateful, sandboxed interface to the host filesystem and shell. It is stateless between BDIAgent calls but maintains state within a single logical plan (e.g., CWD, active venv).<br /><br />
 <!-- It's highly recommended to create and link a real diagram here -->
-# The Core Execution Loop: From Mastermind to Code
+# The Core Execution Loop: From <a href="https://chatgpt.com/g/g-NO8ax8aMU-mastermind">Mastermind</a> to Codebase
 This section details the primary data and control flow for a self-improvement campaign, the system's most important function.<br /><br />
 Step 1: Mastermind - Strategic Campaign Initiation<br /><br />
 The MastermindAgent's autonomous loop is the catalyst for all evolution.<br /><br />
